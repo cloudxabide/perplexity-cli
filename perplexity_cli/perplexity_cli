@@ -278,6 +278,9 @@ Examples:
         """
     )
     
+    # Create an argument group for configuration arguments (which update configuration file)
+    configuration = parser.add_argument_group('Configuration Arguments')
+
     parser.add_argument("-t", "--tokens", type=int, default=default_max_tokens,
                         help=f"Maximum number of tokens (default: {default_max_tokens})")
     parser.add_argument("-m", "--model", type=str, default=default_model,
@@ -290,13 +293,14 @@ Examples:
                         help="Enable verbose output")
     parser.add_argument("-d", "--debug", action="store_true",
                         help="Enable debug logging")
-    parser.add_argument("--set-api-key", type=str,
-                        help="Set API key in config file")
-    parser.add_argument("--set-default-model", type=str,
-                        help="Set default model in config file")
-    parser.add_argument("--set-max-tokens", type=int,
-                        help="Set default max tokens in config file")
     parser.add_argument("--version", action="version", version="%(prog)s 1.0.0")
+
+    configuration.add_argument("--set-api-key", type=str,
+                        help="Set API key in config file")
+    configuration.add_argument("--set-default-model", type=str,
+                        help="Set default model in config file")
+    configuration.add_argument("--set-max-tokens", type=int,
+                        help="Set default max tokens in config file")
     
     args = parser.parse_args()
     
