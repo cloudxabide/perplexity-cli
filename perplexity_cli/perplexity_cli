@@ -15,10 +15,11 @@ import sys
 import argparse
 import json
 import logging
-import requests
-from typing import Dict, List, Any, Optional
-from pathlib import Path
 import configparser
+from pathlib import Path
+from typing import Dict, Any, Optional
+
+import requests
 
 # Configure logging
 logging.basicConfig(
@@ -39,7 +40,7 @@ CONFIG_FILE = Path.home() / ".perplexity_cli_config"
 AVAILABLE_MODELS = [
     "sonar-reasoning-pro",
     "sonar-reasoning",
-    "sonar-pro", 
+    "sonar-pro",
     "sonar",
     "llama-3.1-sonar-small-128k-online",
     "llama-3.1-sonar-large-128k-online",
@@ -161,12 +162,10 @@ def call_api(model: str, max_tokens: int, query: str) -> Dict[str, Any]:
             try:
                 error_json = e.response.json()
                 error_message = error_json.get('error', {}).get('message', error_text)
-            except:
+            except Exception:
                 error_message = error_text
-                
-            raise Exception(f"API call failed with status code {status_code}: {error_message}")
-        else:
-            raise Exception(f"API call failed: {str(e)}")
+            raise Exception(f"API call failed with status code {status_code}: {error_message}") from e
+        raise Exception(f"API call failed: {str(e)}") from e
 
 
 def parse_response(response: Dict[str, Any], verbose: bool = False) -> None:
@@ -208,7 +207,7 @@ def parse_response(response: Dict[str, Any], verbose: bool = False) -> None:
         print(json.dumps(response, indent=2))
 
 
-def save_config(api_key: Optional[str] = None, default_model: Optional[str] = None, 
+def save_config(api_key: Optional[str] = None, default_model: Optional[str] = None,
                max_tokens: Optional[int] = None) -> None:
     """
     Save configuration to config file.
@@ -238,7 +237,7 @@ def save_config(api_key: Optional[str] = None, default_model: Optional[str] = No
     
     # Write config file
     try:
-        with open(CONFIG_FILE, 'w') as f:
+        with open(CONFIG_FILE, 'w', encoding='utf-8') as f:
             config.write(f)
         os.chmod(CONFIG_FILE, 0o600)  # Set permissions to user read/write only
         print(f"Configuration saved to {CONFIG_FILE}")
