@@ -18,6 +18,15 @@ cd perplexity-cli
 pip install -e .
 ```
 
+### Workaround for URLlib3 issue
+
+There are some compatiblity issues which I was not able to resolve in a "resonable way".  But... I also don't know where else
+I would use urllib3 - so, I am not *that* worried about this situation at this time.
+```
+pip uninstall urllib3
+pip install urllib3==1.26.20
+```
+
 ## Configuration
 
 Before using the CLI, you need to set up your Perplexity API key. You can do this in one of two ways:
