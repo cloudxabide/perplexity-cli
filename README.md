@@ -2,6 +2,8 @@
 
 A command-line interface for interacting with the Perplexity AI API.
 
+Warning/NOTE:  must of this content was created by GenAI using Amazon Q.  As with ANY code you find on the Internet, use at your own risk and review the code (fortunately this code is very simple to review).
+
 ## Installation
 
 ### From PyPI (recommended)
