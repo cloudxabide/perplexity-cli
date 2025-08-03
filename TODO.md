@@ -3,7 +3,8 @@
 I had asked Claude Code to review my code
 
 ```
-laude Code!                                                         │
+╭───────────────────────────────────────────────────────────────────────────────────╮
+│ ✻ Welcome to Claude Code!                                                         │
 │                                                                                   │
 │   /help for help, /status for your current setup                                  │
 │                                                                                   │
